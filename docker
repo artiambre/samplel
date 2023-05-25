@@ -1,0 +1,115 @@
+Microsoft Windows [Version 10.0.22000.1696]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\DELL>docker --version
+Docker version 23.0.5, build bc4487a
+
+C:\Users\DELL>docker images
+Error response from daemon: open \\.\pipe\docker_engine_linux: The system cannot find the file specified.
+
+C:\Users\DELL>docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\DELL>docker pull openjdk
+Using default tag: latest
+latest: Pulling from library/openjdk
+Digest: sha256:9b448de897d211c9e0ec635a485650aed6e28d4eca1efbc34940560a480b3f1f
+Status: Image is up to date for openjdk:latest
+docker.io/library/openjdk:latest
+
+C:\Users\DELL>docker images
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+openjdk      latest    71260f256d19   3 months ago   470MB
+
+C:\Users\DELL>docker run --name JAVA1 -it -d openjdk
+0e47af6d5a0ac48391633dbc4f3b21acd50912661bd22f67d3562be9532a48fd
+
+C:\Users\DELL>
+C:\Users\DELL>docker ps
+CONTAINER ID   IMAGE     COMMAND    CREATED         STATUS          PORTS     NAMES
+0e47af6d5a0a   openjdk   "jshell"   4 minutes ago   Up 44 seconds             JAVA1
+
+C:\Users\DELL>docker exec -it JAVA1 jshell
+|  Welcome to JShell -- Version 18.0.2.1
+|  For an introduction type: /help intro
+
+jshell> int a=10
+a ==> 10
+
+jshell> int b=20
+b ==> 20
+
+jshell> System.out.println(a+b);
+30
+
+jshell> docker ps
+|  created variable ps, however, it cannot be referenced until class docker is declared
+
+jshell> /exit
+|  Goodbye
+
+C:\Users\DELL>docker ps
+CONTAINER ID   IMAGE     COMMAND    CREATED          STATUS         PORTS     NAMES
+0e47af6d5a0a   openjdk   "jshell"   10 minutes ago   Up 6 minutes             JAVA1
+
+C:\Users\DELL>docker container 0e47af6d5a0a
+
+Usage:  docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Execute a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Create and run a new container from an image
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
+
+C:\Users\DELL>docker container rm 0e47af6d5a0a
+Error response from daemon: You cannot remove a running container 0e47af6d5a0ac48391633dbc4f3b21acd50912661bd22f67d3562be9532a48fd. Stop the container before attempting removal or force remove
+
+C:\Users\DELL>docker stop 0e47af6d5a0a
+0e47af6d5a0a
+
+C:\Users\DELL>docker container rm 0e47af6d5a0a
+0e47af6d5a0a
+
+C:\Users\DELL>docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\DELL>docker iamges
+docker: 'iamges' is not a docker command.
+See 'docker --help'
+
+C:\Users\DELL>docker images
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+openjdk      latest    71260f256d19   3 months ago   470MB
+
+C:\Users\DELL>docker image prune
+WARNING! This will remove all dangling images.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+
+C:\Users\DELL>
